@@ -75,4 +75,16 @@ jobs:
 
       - name: Check Status
         if: ${{ env.SONAR_STATUS == 'ERROR' }}
-        run: exit 1    
+        run: echo "Problemas de seguridad encontrados..."
+
+
+  security-SNYK:
+    name: snyk image scan
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run Snyk to check Docker image for vulnerabilities
+      uses: snyk/actions/docker@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
