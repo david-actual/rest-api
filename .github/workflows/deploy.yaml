@@ -80,6 +80,7 @@ jobs:
 
   security-SNYK:
     name: snyk image scan
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Run Snyk to check Docker image for vulnerabilities
